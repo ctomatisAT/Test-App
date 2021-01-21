@@ -9,34 +9,49 @@ import { JsonGenService } from '../services/json-gen/json-gen.service';
 })
 export class HomePage implements OnInit {
     itemsList: ElementModel[] = [];
+    filteredItemsList: ElementModel[] = [];
     itemNumber = 1;
     itemLimit = 50;
 
     constructor(private jgSrv: JsonGenService) {}
 
     ngOnInit() {
-        this.fillList(false, false, '');
+        this.fillList(false, '');
     }
 
-    fillList(shouldComplete: boolean, shouldDisable: boolean, event) {
+    fillList(shouldComplete: boolean, event) {
         const newItems = this.jgSrv.generateJSON(this.itemNumber, this.itemNumber + this.itemLimit);
         setTimeout(() => {
             this.itemsList = [...this.itemsList, ...newItems];
+            this.filteredItemsList = this.itemsList;
             if (shouldComplete) {
                 event.target.complete();
             }
-            if (shouldDisable) {
+            if (this.itemsList.length >= 4000) {
                 event.target.disabled = true;
             }
             this.itemNumber += this.itemLimit;
         }, 500);
     }
 
-    doInfinite(event) {
-        let shouldDisable = false;
-        if (this.itemsList.length >= 4000) {
-            shouldDisable = true;
+    filterList(filter: string) {
+        this.filteredItemsList = [];
+        for (const item of this.itemsList) {
+            if (item.id === filter || item.text.toLowerCase().startsWith(filter.toLowerCase())) {
+                this.filteredItemsList.push(item);
+            }
         }
-        this.fillList(true, shouldDisable, event);
+    }
+
+    doInfinite(event) {
+        this.fillList(true, event);
+    }
+
+    onSearch(event) {
+        if (event.target.value) {
+            this.filterList(event.target.value.toString());
+        } else {
+            this.filteredItemsList = this.itemsList;
+        }
     }
 }

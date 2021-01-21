@@ -20,6 +20,6 @@ describe('JsonGenService', () => {
     });
 
     it('should return an array of 100 objects', () => {
-        expect(service.generateJSON(1, 100).length).toBe(100);
+        expect(service.generateJSON(1, 101).length).toBe(100);
     });
 });

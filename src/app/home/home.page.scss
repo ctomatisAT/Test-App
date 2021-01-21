@@ -1,3 +1,13 @@
+.header-container {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+    .header-title {
+        margin-right: 1rem;
+    }
+}
+
 .container {
     padding: 0;
 }
