@@ -4,6 +4,10 @@ import { Injectable } from '@angular/core';
     providedIn: 'root',
 })
 export class TextGenService {
+    /**
+     * Generates a randome text
+     * @param length
+     */
     generateText(length: number) {
         let result = '';
         let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';

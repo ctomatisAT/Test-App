@@ -19,6 +19,11 @@ export class HomePage implements OnInit {
         this.fillList(false, '');
     }
 
+    /**
+     * Fills the items list
+     * @param shouldComplete
+     * @param event
+     */
     fillList(shouldComplete: boolean, event) {
         const newItems = this.jgSrv.generateJSON(this.itemNumber, this.itemNumber + this.itemLimit);
         setTimeout(() => {
@@ -34,6 +39,10 @@ export class HomePage implements OnInit {
         }, 500);
     }
 
+    /**
+     * Filters the items list
+     * @param filter
+     */
     filterList(filter: string) {
         this.filteredItemsList = [];
         for (const item of this.itemsList) {
@@ -43,10 +52,18 @@ export class HomePage implements OnInit {
         }
     }
 
+    /**
+     * Performs the infinite scroll
+     * @param event
+     */
     doInfinite(event) {
         this.fillList(true, event);
     }
 
+    /**
+     * Sets and executes the filtering
+     * @param event
+     */
     onSearch(event) {
         if (event.target.value) {
             this.filterList(event.target.value.toString());

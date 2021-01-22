@@ -8,6 +8,11 @@ import { TextGenService } from '../text-gen/text-gen.service';
 export class JsonGenService {
     constructor(private tg: TextGenService) {}
 
+    /**
+     * Generates and returns a JSON array of ElementModel
+     * @param from
+     * @param to
+     */
     generateJSON(from: number, to: number): ElementModel[] {
         const jsonArray = [];
         for (let i = from; i < to; i++) {
@@ -16,6 +21,10 @@ export class JsonGenService {
         return jsonArray;
     }
 
+    /**
+     * Generates an item of type ElementModel
+     * @param id
+     */
     private generateItem(id: number) {
         return {
             id: id.toString(),
